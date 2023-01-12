@@ -31,11 +31,13 @@ CREATE TABLE asignaturas (
     CONSTRAINT pk_asignaturas PRIMARY KEY (codAsignatura)
 );
 
+
 CREATE TABLE impartir (
     codAsignatura INT UNSIGNED,
     codDepto INT UNSIGNED,
     codProfesor INT UNSIGNED,
     observaciones VARCHAR(500),
+    CONSTRAINT PK_impartir Primary key (codAsignatura, codDepto, codProfesor),
     CONSTRAINT FK_impartir_asignaturas FOREIGN KEY (codAsignatura)
         REFERENCES asignaturas (codAsignatura)
         ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -43,3 +45,5 @@ CREATE TABLE impartir (
         REFERENCES profesores (codDepto , codProfesor)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
+
+SELECT * FROM impartir;
