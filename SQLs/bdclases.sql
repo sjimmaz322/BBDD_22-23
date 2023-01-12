@@ -27,3 +27,14 @@ CREATE TABLE asignaturas (
     curso VARCHAR(20),
     CONSTRAINT pk_asignaturas PRIMARY KEY (codAsignatura)
 );
+
+CREATE TABLE impartir (
+    codAsignatura INT UNSIGNED,
+    codDepto INT UNSIGNED,
+    codProfesor INT UNSIGNED,
+    observaciones VARCHAR(500),
+    CONSTRAINT FK_impartir_asignaturas FOREIGN KEY (codAsignatura)
+        REFERENCES asignaturas (codAsignatura),
+    CONSTRAINT FK_impartir_profesores FOREIGN KEY (codDepto , codProfesor)
+        REFERENCES profesores (codDepto , codProfesor)
+);
