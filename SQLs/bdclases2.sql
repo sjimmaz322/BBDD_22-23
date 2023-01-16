@@ -2,13 +2,13 @@ DROP DATABASE IF EXISTS BDCLASES2;
 CREATE DATABASE IF NOT EXISTS BDCLASES2;
 USE BDCLASES2;
 
-CREATE TABLE departamentos (
+CREATE TABLE IF NOT EXISTS departamentos  (
     codDepto INT UNSIGNED,
     numDepto INT UNSIGNED,
     CONSTRAINT PK_departamentos PRIMARY KEY (codDepto)
 );
 
-CREATE TABLE profesores (
+CREATE TABLE IF NOT EXISTS profesores (
     codDepto INT UNSIGNED,
     codProfesor INT UNSIGNED,
     nomProfesor VARCHAR(20),
@@ -18,13 +18,17 @@ CREATE TABLE profesores (
     salario DECIMAL(6 , 2 ),
     codPostar CHAR(5),
     telefono CHAR(9),
+    jefe INT UNSIGNED,
     CONSTRAINT PK_profesores_departamentos PRIMARY KEY (codProfesor , codDepto),
     CONSTRAINT FK_profesores_departamentos FOREIGN KEY (codDepto)
         REFERENCES departamentos (codDepto)
+        ON DELETE NO ACTION ON UPDATE CASCADE,
+    CONSTRAINT FK_profesores_profesores FOREIGN KEY (jefe)
+        REFERENCES profesores (codProfesor)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
-CREATE TABLE asignaturas (
+CREATE TABLE IF NOT EXISTS asignaturas (
     codAsignatura INT UNSIGNED,
     nomAsignatura VARCHAR(20),
     curso VARCHAR(20),
@@ -32,7 +36,7 @@ CREATE TABLE asignaturas (
 );
 
 
-CREATE TABLE impartir (
+CREATE TABLE IF NOT EXISTS impartir (
     codAsignatura INT UNSIGNED,
     codDepto INT UNSIGNED,
     codProfesor INT UNSIGNED,
