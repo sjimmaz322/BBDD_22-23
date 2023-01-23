@@ -97,8 +97,3 @@ CREATE TABLE IF NOT EXISTS restauraciones (
         REFERENCES restauradores (codRestaurador)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
-
-
-
-
-
