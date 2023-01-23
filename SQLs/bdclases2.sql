@@ -2,6 +2,8 @@ DROP DATABASE IF EXISTS BDCLASES2;
 CREATE DATABASE IF NOT EXISTS BDCLASES2;
 USE BDCLASES2;
 
+-- Ejercicio 2
+
 CREATE TABLE IF NOT EXISTS departamentos  (
     codDepto INT UNSIGNED,
     numDepto INT UNSIGNED,
@@ -49,3 +51,46 @@ CREATE TABLE IF NOT EXISTS impartir (
         REFERENCES profesores (codDepto , codProfesor)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
+
+-- Ejercicio 3
+
+CREATE TABLE IF NOT EXISTS categorias (
+    codCat INT UNSIGNED,
+    nomCategoria VARCHAR(20),
+    proveedor VARCHAR(30),
+    CONSTRAINT PK_categoria PRIMARY KEY (codCat)
+);
+
+CREATE TABLE IF NOT EXISTS productos (
+    refProd INT UNSIGNED,
+    descrip VARCHAR(50),
+    precioBase DECIMAL(10 , 2 ),
+    precioVenta DECIMAL(10 , 2 ),
+    codCat INT UNSIGNED,
+    CONSTRAINT PK_productos PRIMARY KEY (refProd , codCat),
+    CONSTRAINT FK_productos_categorias FOREIGN KEY (codCat)
+        REFERENCES categorias (codCat)
+        ON DELETE NO ACTION ON UPDATE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS ventas (
+    codVenta INT UNSIGNED,
+    fecVenta DATE,
+    cliente VARCHAR(30),
+    CONSTRAINT PK_ventas PRIMARY KEY (codVenta)
+);
+
+CREATE TABLE IF NOT EXISTS lin_ventas (
+    codVenta INT UNSIGNED,
+    refProd INT UNSIGNED,
+    codCat INT UNSIGNED,
+    cantidad INT UNSIGNED,
+    CONSTRAINT pk_lin_ventas PRIMARY KEY (codVenta , refProd , codCat),
+    CONSTRAINT fk_lin_ventas_ventas FOREIGN KEY (codVenta)
+        REFERENCES ventas (codVenta)
+        ON DELETE NO ACTION ON UPDATE CASCADE,
+    CONSTRAINT fk_lin_ventas_productos FOREIGN KEY (refProd , codCat)
+        REFERENCES productos (refProd , codCat)
+        ON DELETE NO ACTION ON UPDATE CASCADE
+); 
+
