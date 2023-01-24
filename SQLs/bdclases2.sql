@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS impartir (
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
 
--- Ejercicio 3
+-- Ejercicio 3 -- Almacén
 
 CREATE TABLE IF NOT EXISTS categorias (
     codCat INT UNSIGNED,
@@ -66,11 +66,7 @@ CREATE TABLE IF NOT EXISTS productos (
     descrip VARCHAR(50),
     precioBase DECIMAL(10 , 2 ),
     precioVenta DECIMAL(10 , 2 ),
-    codCat INT UNSIGNED,
-    CONSTRAINT PK_productos PRIMARY KEY (refProd , codCat),
-    CONSTRAINT FK_productos_categorias FOREIGN KEY (codCat)
-        REFERENCES categorias (codCat)
-        ON DELETE NO ACTION ON UPDATE CASCADE
+    CONSTRAINT PK_productos PRIMARY KEY (refProd)
 );
 
 CREATE TABLE IF NOT EXISTS ventas (
@@ -83,14 +79,40 @@ CREATE TABLE IF NOT EXISTS ventas (
 CREATE TABLE IF NOT EXISTS lin_ventas (
     codVenta INT UNSIGNED,
     refProd INT UNSIGNED,
-    codCat INT UNSIGNED,
     cantidad INT UNSIGNED,
-    CONSTRAINT pk_lin_ventas PRIMARY KEY (codVenta , refProd , codCat),
+    CONSTRAINT pk_lin_ventas PRIMARY KEY (codVenta , refProd),
     CONSTRAINT fk_lin_ventas_ventas FOREIGN KEY (codVenta)
         REFERENCES ventas (codVenta)
         ON DELETE NO ACTION ON UPDATE CASCADE,
-    CONSTRAINT fk_lin_ventas_productos FOREIGN KEY (refProd , codCat)
-        REFERENCES productos (refProd , codCat)
+    CONSTRAINT fk_lin_ventas_productos FOREIGN KEY (refProd)
+        REFERENCES productos (refProd)
         ON DELETE NO ACTION ON UPDATE CASCADE
 ); 
+-- 
+ALTER TABLE productos
+	ADD COLUMN codCat INT UNSIGNED AFTER refProd,
+    ADD CONSTRAINT fk_productos_categorias FOREIGN KEY (codCat)
+    REFERENCES categorias(codCat)
+    ON DELETE NO ACTION ON UPDATE CASCADE;
+-- 
+ALTER TABLE lin_ventas
+	DROP CONSTRAINT fk_lin_ventas_productos;
+-- 
+ALTER TABLE productos
+	DROP PRIMARY KEY,
+    ADD CONSTRAINT pk_productos PRIMARY KEY (refProd, codCat);
+--
+ALTER TABLE lin_ventas
+	ADD COLUMN codCat INT UNSIGNED,
+    DROP INDEX fk_lin_ventas_productos,
+    ADD CONSTRAINT fk_lin_ventas_productos FOREIGN KEY (refProd, codCat)
+		REFERENCES productos (refProd, codCat)
+		ON DELETE NO ACTION ON UPDATE CASCADE,
+	DROP CONSTRAINT fk_lin_ventas_ventas,
+    DROP PRIMARY KEY,
+    ADD CONSTRAINT pk_lin_ventas PRIMARY KEY (refProd, codCat, codVenta),
+    ADD CONSTRAINT fk_linventas_ventas FOREIGN KEY (codVenta)
+		REFERENCES ventas (codVenta)
+        ON DELETE NO ACTION ON UPDATE CASCADE;
+	
 

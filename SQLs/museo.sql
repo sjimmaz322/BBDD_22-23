@@ -5,6 +5,8 @@ USE museo;
 CREATE TABLE IF NOT EXISTS empleados (
     codEmpleado INT UNSIGNED,
     nomEmpleado VARCHAR(30),
+    ape1Empleado VARCHAR(30),
+    ape2Empleado VARCHAR(30) NULL,
     fechIncorporacion DATE,
     CONSTRAINT PK_empleados PRIMARY KEY (codEmpleado)
 );
@@ -14,6 +16,7 @@ CREATE TABLE IF NOT EXISTS artistas (
     nomArtista VARCHAR(50),
     fecNacimiento DATE,
     fecFallecimiento DATE,
+    biografia text,
     CONSTRAINT PK_artistas PRIMARY KEY (codArtista)
 );
 -- 
@@ -24,13 +27,24 @@ CREATE TABLE IF NOT EXISTS estilos (
     CONSTRAINT PK_estilos PRIMARY KEY (codEstilo)
 );
 -- 
+CREATE TABLE IF NOT EXISTS salas (
+    codSala INT UNSIGNED,
+    nomSala VARCHAR(20),
+    mCuadrados INT UNSIGNED,
+    CONSTRAINT PK_salas PRIMARY KEY (codSala)
+);
+-- 
 CREATE TABLE IF NOT EXISTS seguridad (
     codSeguridad INT UNSIGNED,
     nomEmpresa VARCHAR(20),
     codEmpleado INT UNSIGNED,
+    codSala INT UNSIGNED,
     CONSTRAINT PK_seguridad PRIMARY KEY (codSeguridad),
     CONSTRAINT FK_seguridad_empleados FOREIGN KEY (codEmpleado)
         REFERENCES empleados (codEmpleado)
+        ON DELETE NO ACTION ON UPDATE CASCADE,
+    CONSTRAINT FK_seguridad_salas FOREIGN KEY (codSala)
+        REFERENCES salas (codSala)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
 -- 
@@ -56,6 +70,7 @@ CREATE TABLE IF NOT EXISTS obras (
     nomObra VARCHAR(50),
     codArtista INT UNSIGNED,
     codEstilo INT UNSIGNED,
+    codSala INT UNSIGNED,
     CONSTRAINT PK_obras PRIMARY KEY (codObra),
     CONSTRAINT FK_obras_tipoObras FOREIGN KEY (tipoObra)
         REFERENCES tipoObras (tipoObra)
@@ -65,21 +80,9 @@ CREATE TABLE IF NOT EXISTS obras (
         ON DELETE NO ACTION ON UPDATE CASCADE,
     CONSTRAINT FK_obras_estilos FOREIGN KEY (codEstilo)
         REFERENCES estilos (codEstilo)
-        ON DELETE NO ACTION ON UPDATE CASCADE
-);
--- 
-CREATE TABLE IF NOT EXISTS salas (
-    codSala INT UNSIGNED,
-    nomSala VARCHAR(20),
-    mCuadrados INT UNSIGNED,
-    codSeguridad INT UNSIGNED,
-    codObra INT UNSIGNED,
-    CONSTRAINT PK_salas PRIMARY KEY (codSala),
-    CONSTRAINT FK_salas_obras FOREIGN KEY (codObra)
-        REFERENCES obras (codObra)
         ON DELETE NO ACTION ON UPDATE CASCADE,
-    CONSTRAINT FK_salas_seguridad FOREIGN KEY (codSeguridad)
-        REFERENCES seguridad (codSeguridad)
+    CONSTRAINT FK_obras_salas FOREIGN KEY (codSala)
+        REFERENCES salas (codSala)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
 -- 
@@ -95,5 +98,33 @@ CREATE TABLE IF NOT EXISTS restauraciones (
         ON DELETE NO ACTION ON UPDATE CASCADE,
     CONSTRAINT FK_restauraciones_restauradores FOREIGN KEY (codRestaurador)
         REFERENCES restauradores (codRestaurador)
+        ON DELETE NO ACTION ON UPDATE CASCADE
+);
+-- 
+ALTER TABLE seguridad
+	DROP COLUMN codSala,
+    DROP FOREIGN KEY FK_seguridad_salas;
+-- 
+CREATE TABLE turnos (
+    codTurno INT UNSIGNED,
+    tipoTurno VARCHAR(6),
+    CONSTRAINT PK_turnos PRIMARY KEY (codTurno)
+);
+-- 
+CREATE TABLE detalleTurno (
+    codSeguridad INT UNSIGNED,
+    codSala INT UNSIGNED,
+    codTurno INT UNSIGNED,
+    fecInicioTurno DATE,
+    fecFinTurno DATE,
+    CONSTRAINT pk_detalleTurno PRIMARY KEY (codSeguridad , codSala , codTurno),
+    CONSTRAINT fk_detalleTurno_seguridad FOREIGN KEY (codSeguridad)
+        REFERENCES seguridad (codSeguridad)
+        ON DELETE NO ACTION ON UPDATE CASCADE,
+    CONSTRAINT fk_detalleTurno_sala FOREIGN KEY (codSala)
+        REFERENCES salas (codSala)
+        ON DELETE NO ACTION ON UPDATE CASCADE,
+    CONSTRAINT fk_detalleTurno_turnos FOREIGN KEY (codTurno)
+        REFERENCES turnos (codTurno)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
