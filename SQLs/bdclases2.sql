@@ -80,6 +80,11 @@ CREATE TABLE IF NOT EXISTS lin_ventas (
     codVenta INT UNSIGNED,
     refProd INT UNSIGNED,
     cantidad INT UNSIGNED,
+    precioBaseVentaAFechaVenta DECIMAL(10 , 2 ),
+    /*
+    Desnormalizamos --> Pero lo necesitamos para saber los precios de cuando se realizaron las ventas.
+    */
+    precioVentaAFechaVenta DECIMAL(10 , 2 ),
     CONSTRAINT pk_lin_ventas PRIMARY KEY (codVenta , refProd),
     CONSTRAINT fk_lin_ventas_ventas FOREIGN KEY (codVenta)
         REFERENCES ventas (codVenta)

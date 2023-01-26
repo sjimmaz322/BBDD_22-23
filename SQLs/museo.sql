@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS restauraciones (
     fecInicioRest DATE,
     fecFinREst DATE,
     observaciones VARCHAR(200),
-    CONSTRAINT PF_restauraciones PRIMARY KEY (codObra , codRestaurador),
+    CONSTRAINT PF_restauraciones PRIMARY KEY (codObra , codRestaurador, fecInicioRest),
     CONSTRAINT FK_restauraciones_obra FOREIGN KEY (codObra)
         REFERENCES obras (codObra)
         ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -117,7 +117,7 @@ CREATE TABLE detalleTurno (
     codTurno INT UNSIGNED,
     fecInicioTurno DATE,
     fecFinTurno DATE,
-    CONSTRAINT pk_detalleTurno PRIMARY KEY (codSeguridad , codSala , codTurno),
+    CONSTRAINT pk_detalleTurno PRIMARY KEY (codSeguridad , codSala , codTurno, fecInicioTurno),
     CONSTRAINT fk_detalleTurno_seguridad FOREIGN KEY (codSeguridad)
         REFERENCES seguridad (codSeguridad)
         ON DELETE NO ACTION ON UPDATE CASCADE,
@@ -128,3 +128,27 @@ CREATE TABLE detalleTurno (
         REFERENCES turnos (codTurno)
         ON DELETE NO ACTION ON UPDATE CASCADE
 );
+-- 
+ALTER TABLE restauradores
+DROP FOREIGN KEY FK_restauradores_empleados,
+ADD CONSTRAINT FK_restauradores_emple FOREIGN KEY (codEmpleado)
+        REFERENCES empleados (codEmpleado)
+        ON DELETE NO ACTION ON UPDATE CASCADE;
+--
+CREATE TABLE departamentos (
+    codDepto INT UNSIGNED,
+    nomDepto VARCHAR(30),
+    CONSTRAINT PK_departamentos PRIMARY KEY (codDepto)
+);
+ALTER TABLE empleados
+ADD COLUMN codDepto INT UNSIGNED,
+ADD CONSTRAINT FK_empleados_departamentos FOREIGN KEY (codDepto)
+	REFERENCES departamentos (codDepto)
+	ON DELETE NO ACTION ON UPDATE CASCADE;
+-- 
+/*
+Para el lunes:
+Cambiar a la opción B de jerarquías.
+Tareas Classroom.
+*/
+-- 
