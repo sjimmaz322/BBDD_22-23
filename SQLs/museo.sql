@@ -140,6 +140,7 @@ CREATE TABLE departamentos (
     nomDepto VARCHAR(30),
     CONSTRAINT PK_departamentos PRIMARY KEY (codDepto)
 );
+-- 
 ALTER TABLE empleados
 ADD COLUMN codDepto INT UNSIGNED,
 ADD CONSTRAINT FK_empleados_departamentos FOREIGN KEY (codDepto)
@@ -151,4 +152,34 @@ Para el lunes:
 Cambiar a la opción B de jerarquías.
 Tareas Classroom.
 */
+-- 
+ALTER TABLE restauradores
+DROP FOREIGN KEY FK_restauradores_emple,
+ADD CONSTRAINT FK_restauradores_empleados FOREIGN KEY (codEmpleado)
+	REFERENCES empleados (codEmpleado)
+	ON DELETE CASCADE ON UPDATE CASCADE;
+    
+ALTER TABLE seguridad
+DROP FOREIGN KEY FK_seguridad_empleados,
+ADD CONSTRAINT FK_seguridad_empleado FOREIGN KEY (codEmpleado)
+    REFERENCES empleados (codEmpleado)
+    ON DELETE NO ACTION ON UPDATE CASCADE;
+-- 
+ALTER TABLE obras
+DROP FOREIGN KEY FK_obras_tipoObras,
+ADD CONSTRAINT FK_obras_tipoObra FOREIGN KEY (tipoObra)
+	REFERENCES tipoObras (tipoObra)
+	ON DELETE NO ACTION ON UPDATE SET NUll;
+-- 
+ALTER TABLE obras
+DROP FOREIGN KEY FK_obras_artistas,
+ADD CONSTRAINT FK_obras_artista FOREIGN KEY (codArtista)
+	REFERENCES artistas (codArtista)
+    ON DELETE SET NULL ON UPDATE CASCADE;
+-- 
+ALTER TABLE obras
+DROP CONSTRAINT FK_obras_artista,
+ADD CONSTRAINT FK_obras_artistas FOREIGN KEY (codArtista)
+	REFERENCES artistas (codArtista)
+    ON DELETE SET NULL ON UPDATE NO ACTION;
 -- 
