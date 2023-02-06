@@ -79,10 +79,10 @@ CREATE TABLE abogadosEnCasos (
 );
 -- 
 ALTER TABLE abogadosEnCasos
-DROP FOREIGN KEY fk_abogadosEnCasos_casos,
-DROP PRIMARY KEY;
+	DROP FOREIGN KEY fk_abogadosEnCasos_casos,
+	DROP PRIMARY KEY;
 --  
 ALTER TABLE casos
-DROP CONSTRAINT fk_casos_tipocasos,
-ADD COLUMN tipoCaso set('Civil','Penal','Laboral','Admin','Familiar') after codCaso;
+	DROP CONSTRAINT fk_casos_tipocasos,
+	ADD COLUMN tipoCaso SET('Civil','Penal','Laboral','Admin','Familiar') AFTER codCaso;
 -- 
