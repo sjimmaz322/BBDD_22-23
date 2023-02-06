@@ -80,6 +80,7 @@ CREATE TABLE abogadosEnCasos (
 -- 
 ALTER TABLE abogadosEnCasos
 	DROP FOREIGN KEY fk_abogadosEnCasos_casos,
+    DROP COLUMN codTipoCasos,
 	DROP PRIMARY KEY;
 --  
 ALTER TABLE casos
