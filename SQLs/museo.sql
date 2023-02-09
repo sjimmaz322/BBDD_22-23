@@ -183,3 +183,26 @@ ADD CONSTRAINT FK_obras_artistas FOREIGN KEY (codArtista)
 	REFERENCES artistas (codArtista)
     ON DELETE SET NULL ON UPDATE NO ACTION;
 -- 
+INSERT INTO estilos
+(codEstilo,nomEstilo,augeEpoca)
+VALUES
+(1,'Barroco','Siglo XV'),
+(2,'Neoclásico','Siglo XVI'),
+(3,'Románico','Siglo V');
+-- 
+SELECT * FROM estilos;
+-- 
+DELETE FROM estilos 
+WHERE
+    codEstilo = 2;
+-- 
+SELECT * FROM estilos;
+-- 
+UPDATE estilos 
+SET 
+    codEstilo = 2
+WHERE
+    codEstilo = 3;
+-- 
+SELECT * FROM estilos;
+-- 
