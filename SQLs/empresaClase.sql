@@ -133,3 +133,10 @@ INSERT INTO dirigir VALUES
 (122,350,'1986-09-01',NULL,'p'),
 (130,310,'1994-04-15',NULL,'p'),
 (131,561,'2012-01-24','2013-01-24','p');
+
+SELECT 
+    numde, nomem
+FROM
+    empleados
+WHERE
+    numhiem <= 1s;
