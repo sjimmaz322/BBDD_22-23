@@ -1,5 +1,5 @@
 -- Tema 6 relación de ejercicios 1
-use empresaClase;
+use empresaclase;
 --
 -- 1 - Obtener todos los datos de todos los empleados.
 SELECT 
@@ -21,7 +21,7 @@ SELECT
 FROM
     empleados
 WHERE
-    numhiem > 1;
+    ifnull(numhiem,0) > 1;
 --
 -- 4 - Obtener el nombre completo y en una sola columna de los empleados que tienen entre 1 y 3 hijos.
 SELECT 
@@ -33,7 +33,7 @@ SELECT
 FROM
     empleados
 WHERE
-    numhiem >= 1 AND numhiem <= 3;
+    ifnull(numhiem,0) >= 1 AND ifnull(numhiem,0) <= 3;
 -- 
 -- 5 - Obtener el nombre completo y en una sola columna de los empleados sin comisión.
 SELECT 
@@ -45,7 +45,7 @@ SELECT
 FROM
     empleados
 WHERE
-    comisem = 0 OR comisem IS NULL;
+    ifnull(comisem,0) = 0;
 --
 -- 6 - Obtener la dirección del centro de trabajo “Sede Central”.
 SELECT 
@@ -94,3 +94,22 @@ FROM
     empleados
 WHERE
     fecinem BETWEEN DATE_SUB(CURDATE(), INTERVAL 3 YEAR) AND DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+    
+--
+--
+--
+-- Ejemplo de procedure
+delimiter $$
+drop procedure if exists buscarExtelem $$
+create procedure buscarExtelem (nombre varchar(60),apellido1 varchar(60))
+begin
+SELECT 
+    extelem
+FROM
+    empleados
+WHERE
+    nomem = nombre AND ape1em = apellido1;
+end $$
+delimiter ;
+-- 
+call buscarExtelem("Juan","López");

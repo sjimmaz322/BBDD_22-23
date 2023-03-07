@@ -139,4 +139,4 @@ SELECT
 FROM
     empleados
 WHERE
-    numhiem <= 1s;
+    numhiem <= 1;
