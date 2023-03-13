@@ -15,6 +15,8 @@ FROM
 WHERE
     nomem = 'Juan' AND ape1em = 'López';
 -- 
+
+-- 
 -- 3 - Obtener el nombre completo de los empleados que tienen más de un hijo.
 SELECT 
     ape1em, ape2em, nomem
@@ -174,7 +176,7 @@ end $$
 delimiter ;
 commit;
 --
-call mostarEmpleadosConNhijos(2);
+call mostrarEmpleadosConNHijos(2);
 call mostrarEmpleadosConXHijos(1,3);
 --
 -- 14 - Prepara un procedimiento almacenado que, dado el nombre de un centro de trabajo, nos devuelva su dirección.
@@ -269,3 +271,60 @@ end$$
 delimiter ;
 --
 call mostrarEmpleadosContratadosFueraDe('2020-1-1','2022-1-1');
+--
+
+/*El ejercicio 2 lo hacemos como función*/
+-- Vemos como hacer funciones
+-- Se llaman únicamente poniendo el nombre de la función
+delimiter $$
+drop function if exists conseguirExtelem $$
+create function conseguirExtelem(
+nombre varchar(60), apellido varchar(60)
+)
+
+returns char(3)
+DETERMINISTIC
+begin
+
+declare extension char(3);
+/*
+select extelem into extension
+from empleados
+where nomem = nombre and ape1em = apellido;
+*/
+
+set extension =(select extelem
+from empleados
+where nomem = nombre and ape1em = apellido);
+
+return extension;
+/*
+return(
+select extelem
+from empleados
+where nomem = nombre and ape1em = apellido);
+*/
+
+end $$
+delimiter ;
+
+-- 
+/*
+Funciones solo devuelven un valor, procedimientos pueden devolver N valores
+*/
+
+-- Ejercicio 2 como un procedimiento que devuelve un valor
+delimiter $$
+drop procedure if exists ejDevolExtProc$$
+create procedure ejDevolExtProc(in nombreEm varchar(60),
+in apellidoEm varchar(60),out extension char(3))
+begin
+set extension = (select extelem from empleados where
+nomem = nombreEm and ape1em = apellidoEm);
+end $$
+
+delimiter ;
+
+-- 
+call ejDevolExtProc('Juan','López', @extEm);
+select @extEm;
