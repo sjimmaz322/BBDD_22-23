@@ -1,12 +1,6 @@
 -- Tema 6 Relación de ejercicios 2
 use empresaclase;
 /*
-
-
-
-
-
-
 Como el apartado 6 pero generalizado para poder buscar el rango que deseemos.
 Como el apartado 7 pero generalizado para poder buscar las extensiones del departamento que queramos.
 */
@@ -71,7 +65,7 @@ FROM
         JOIN
     centros ON departamentos.numce = centros.numce
 WHERE
-    centros.nomce = ' SEDE CENTRAL';
+    trim(centros.nomce) = 'SEDE CENTRAL';
 -- 
 -- Ejercicio 8: Obtener el nombre de los centros de trabajo cuyo presupuesto esté entre 100000 € y 150000 €.
 SELECT 
@@ -86,7 +80,7 @@ WHERE
 --
 -- Ejercicio 9: Obtener las extensiones telefónicas del departamento “Finanzas”. No deben salir extensiones repetidas.
 SELECT 
-    empleados.extelem
+    distinct empleados.extelem
 FROM
     empleados
         JOIN
