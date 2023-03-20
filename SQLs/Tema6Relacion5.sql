@@ -57,9 +57,9 @@ delimiter $$
 drop procedure if exists getProductInfo $$
 create procedure getProductInfo()
 begin
-	select * from productos
-    where productos.codcategoria like substring(productos.codcategoria,3)
-    group by productos.codcategoria;
+	select productos.descripcion, left(categorias.Nomcategoria,3) 
+    from productos join categorias on productos.codcategoria = categorias.codcategoria
+    order by productos.codcategoria;
 end $$
 delimiter ;
 --
