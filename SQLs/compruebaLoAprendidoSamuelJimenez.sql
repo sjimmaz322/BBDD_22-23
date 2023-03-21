@@ -67,25 +67,29 @@ select concat('Empezó el',@fecha,' - el número de su director es ', @numero,' 
 --
 -- 3. Prepara una rutina que nos devuelva el nombre de todos los empleados y el nombre del último departamento que ha dirigido (si es que  ha dirigido alguno)
 
-drop procedure if exists getEmpleadosYDirecciones;
 delimiter $$
-create procedure getEmpleadosYDirecciones()
+drop procedure if exists getEmpleadosYDirecciones $$
+create procedure getEmpleadosYDirecciones ()
 begin
-SELECT 
-    CONCAT(ape1em,
-            ' ',
-            IFNULL(ape2em, ''),
-            ', ',
-            nomem) AS 'Nombre completo',
-    departamentos.nomde
+	
+    SELECT 
+    empleados.nomem,
+    departamentos.nomde,
+    dirigir.fecinidir,
+    dirigir.fecfindir
 FROM
     empleados
-        JOIN
-    departamentos ON empleados.numde = departamentos.numde
-        RIGHT JOIN
-    dirigir ON departamentos.numde = dirigir.numdepto;
-
-
+        LEFT JOIN
+    dirigir ON empleados.numem = dirigir.numempdirec
+        LEFT JOIN
+    departamentos ON dirigir.numdepto = departamentos.numde
+    where dirigir.numdepto = (select d1.numdepto
+							  from dirigir as d1
+							  where d1.numdepto = dirigir.numdepto
+                              order by d1.fecinidir desc
+                              limit 1) or dirigir.numdepto is null
+	
+    order by empleados.nomem;
 end $$
 delimiter ;
 --
