@@ -1,5 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `bdalmacen` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `bdalmacen`;
+USE bdalmacen;
 -- MySQL dump 10.13  Distrib 5.5.29, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: bdalmacen
