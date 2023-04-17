@@ -34,7 +34,7 @@ delimiter ;
 -- 
 select tem7ejer1rel6(110);
 
--- Relación 4: 26 y 27 para mañana, opcionales 22, 23, 30, 16, 17, 40
+-- Relación 4: 40, 26 y 27 para mañana, opcionales 22, 23, 30, 16, 17
 
 /*
 
