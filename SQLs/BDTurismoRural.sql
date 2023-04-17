@@ -1,66 +1,109 @@
-DROP DATABASE IF EXISTS turRural;
-CREATE DATABASE IF NOT EXISTS turRural;
-USE turRural;
+DROP DATABASE IF EXISTS `GBDturRural`;
+CREATE DATABASE  IF NOT EXISTS `GBDturRural` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `GBDturRural`;
+-- MySQL dump 10.13  Distrib 5.5.35, for debian-linux-gnu (i686)
+--
+-- Host: 127.0.0.1    Database: GBDturRural2014
+-- ------------------------------------------------------
+-- Server version	5.5.35-0ubuntu0.12.04.2
 
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE propietarios (
-  codpropietario int(11) NOT NULL DEFAULT 0,
-  nompropietario varchar(100) DEFAULT NULL,
-  personacontacto varchar(100) DEFAULT NULL,
-  dni_cif char(12) DEFAULT NULL,
-  tlf_contacto char(13) DEFAULT NULL,
-  correoelectronico varchar(60) DEFAULT NULL,
-  codtipopropi int(11) DEFAULT NULL,
-  PRIMARY KEY (codpropietario)
-);
+--
+-- Table structure for table `propietarios`
+--
 
-INSERT INTO propietarios VALUES
-(1,'Mª Flores Sánchez',NULL,'19087678q','678000000','mariaflores@gmail.com',NULL),
-(2,'Juan Sánchez Núñez',NULL,'00000123A','666000000','juanito@hotmail.com',NULL),
-(3,'Inmobiliaria Campo y Sol','Marina Tortosa','DX123456AB','609010203','marina@campoysol.com',NULL),
-(4,'Sofía López Gómez',NULL,'11111111L','607908070','sofilopez@hotmail.com',NULL);
+DROP TABLE IF EXISTS `propietarios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `propietarios` (
+  `codpropietario` int(11) NOT NULL DEFAULT '0',
+  `nompropietario` varchar(100) DEFAULT NULL,
+  `personacontacto` varchar(100) DEFAULT NULL,
+  `dni_cif` char(12) DEFAULT NULL,
+  `tlf_contacto` char(13) DEFAULT NULL,
+  `correoelectronico` varchar(60) DEFAULT NULL,
+  `codtipopropi` int(11) DEFAULT NULL,
+  PRIMARY KEY (`codpropietario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-CREATE TABLE zonas (
-  numzona int(11) NOT NULL DEFAULT 0,
-  nomzona varchar(20) DEFAULT NULL,
-  deszona varchar(200) DEFAULT NULL,
-  PRIMARY KEY (numzona)
-);
+--
+-- Dumping data for table `propietarios`
+--
 
-INSERT INTO `zonas` VALUES 
-(1,'Serranía Ronda',NULL),
-(2,'Valle del Genal',NULL),
-(3,'Axarquía',NULL),
-(4,'Sierra Grazalema',NULL),
-(5,'Los Alcornocales',NULL),
-(6,'Sierra de las Nieves',NULL),
-(7,'La Alpujarra',NULL),
-(8,'Sierra de Cazorla, S',NULL);
+LOCK TABLES `propietarios` WRITE;
+/*!40000 ALTER TABLE `propietarios` DISABLE KEYS */;
+INSERT INTO `propietarios` VALUES (1,'Mª Flores Sánchez',NULL,'19087678q','678000000','mariaflores@gmail.com',NULL),(2,'Juan Sánchez Núñez',NULL,'00000123A','666000000','juanito@hotmail.com',NULL),(3,'Inmobiliaria Campo y Sol','Marina Tortosa','DX123456AB','609010203','marina@campoysol.com',NULL),(4,'Sofía López Gómez',NULL,'11111111L','607908070','sofilopez@hotmail.com',NULL);
+/*!40000 ALTER TABLE `propietarios` ENABLE KEYS */;
+UNLOCK TABLES;
 
-CREATE TABLE casas (
-  codcasa int(11) NOT NULL DEFAULT 0,
-  nomcasa varchar(20) DEFAULT NULL,
-  numbanios tinyint(4) DEFAULT NULL,
-  numhabit tinyint(4) DEFAULT NULL,
-  m2 int(11) DEFAULT NULL,
-  minpersonas tinyint(4) DEFAULT NULL,
-  maxpersonas tinyint(4) DEFAULT NULL,
-  preciobase decimal(10,2) DEFAULT NULL,
-  codpropi int(11) DEFAULT NULL,
-  codtipocasa int(11) DEFAULT NULL,
-  codzona int(11) DEFAULT NULL,
-  dirpostal varchar(100) DEFAULT NULL,
-  poblacion varchar(20) DEFAULT NULL,
-  provincia varchar(20) DEFAULT NULL,
-  codpostal char(5) DEFAULT NULL,
-  PRIMARY KEY (codcasa),
-  KEY fk_casas_tiposcasa (codtipocasa),
-  KEY fk_casas_propietarios (codpropi),
-  KEY fk_casas_zonas (codzona),
-  CONSTRAINT fk_casas_propietarios FOREIGN KEY (codpropi) REFERENCES propietarios (codpropietario),
-  CONSTRAINT fk_casas_tiposcasa FOREIGN KEY (codtipocasa) REFERENCES tiposcasa (numtipo),
-  CONSTRAINT fk_casas_zonas FOREIGN KEY (codzona) REFERENCES zonas (numzona)
-);
+--
+-- Table structure for table `zonas`
+--
+
+DROP TABLE IF EXISTS `zonas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `zonas` (
+  `numzona` int(11) NOT NULL DEFAULT '0',
+  `nomzona` varchar(20) DEFAULT NULL,
+  `deszona` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`numzona`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `zonas`
+--
+
+LOCK TABLES `zonas` WRITE;
+/*!40000 ALTER TABLE `zonas` DISABLE KEYS */;
+INSERT INTO `zonas` VALUES (1,'Serranía Ronda',NULL),(2,'Valle del Genal',NULL),(3,'Axarquía',NULL),(4,'Sierra Grazalema',NULL),(5,'Los Alcornocales',NULL),(6,'Sierra de las Nieves',NULL),(7,'La Alpujarra',NULL),(8,'Sierra de Cazorla, S',NULL);
+/*!40000 ALTER TABLE `zonas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `casas`
+--
+
+DROP TABLE IF EXISTS `casas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `casas` (
+  `codcasa` int(11) NOT NULL DEFAULT '0',
+  `nomcasa` varchar(20) DEFAULT NULL,
+  `numbanios` tinyint(4) DEFAULT NULL,
+  `numhabit` tinyint(4) DEFAULT NULL,
+  `m2` int(11) DEFAULT NULL,
+  `minpersonas` tinyint(4) DEFAULT NULL,
+  `maxpersonas` tinyint(4) DEFAULT NULL,
+  `preciobase` decimal(10,2) DEFAULT NULL,
+  `codpropi` int(11) DEFAULT NULL,
+  `codtipocasa` int(11) DEFAULT NULL,
+  `codzona` int(11) DEFAULT NULL,
+  `dirpostal` varchar(100) DEFAULT NULL,
+  `poblacion` varchar(20) DEFAULT NULL,
+  `provincia` varchar(20) DEFAULT NULL,
+  `codpostal` char(5) DEFAULT NULL,
+  PRIMARY KEY (`codcasa`),
+  KEY `fk_casas_tiposcasa` (`codtipocasa`),
+  KEY `fk_casas_propietarios` (`codpropi`),
+  KEY `fk_casas_zonas` (`codzona`),
+  CONSTRAINT `fk_casas_propietarios` FOREIGN KEY (`codpropi`) REFERENCES `propietarios` (`codpropietario`),
+  CONSTRAINT `fk_casas_tiposcasa` FOREIGN KEY (`codtipocasa`) REFERENCES `tiposcasa` (`numtipo`),
+  CONSTRAINT `fk_casas_zonas` FOREIGN KEY (`codzona`) REFERENCES `zonas` (`numzona`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `casas`
@@ -279,3 +322,78 @@ LOCK TABLES `caracteristicasdecasas` WRITE;
 /*!40000 ALTER TABLE `caracteristicasdecasas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2014-05-06  1:01:18
+
+/*
+Prepara una consulta que muestre, de la forma más eficientemente posible,
+todos los datos de las casas con capacidad de entre 4 y 6 personas de la provincia de Sevilla. 
+*/
+drop procedure if exists p1;
+delimiter $$
+create procedure p1()
+begin
+	SELECT 
+		*
+	FROM
+		casas
+	WHERE
+		provincia = 'Sevilla' and (maxpersonas between 4 and 6);
+    
+end $$
+
+delimiter ;
+-- 
+call p1();
+-- 
+/*
+Prepara una consulta que muestre las reservas que se han anulado este año y el importe de la devolución (si se ha producido).
+Nos interesa mostrar el código de la reserva y el nombre y apellidos del cliente (en una sola columna).
+Ten en cuenta que no todas las reservas anuladas han provocado devolución y que solo existirá la fila en devoluciones para aquellas reservas con devolución.
+*/
+drop procedure if exists p2;
+delimiter $$
+create procedure p2()
+begin
+
+select concat(clientes.ape1cli,' ',clientes.ape2cli,', ',clientes.nomcli) as 'Nombre cliente', 
+	reservas.codreserva as 'Código de la reserva', 
+	devoluciones.importedevol as 'Cantidad devuelta'
+from clientes join reservas on clientes.codcli = reservas.codcliente join devoluciones on reservas.codreserva = devoluciones.codreserva
+where year(reservas.fecanulacion) = year(curdate());    
+
+end $$
+
+delimiter ;
+--
+call p2();
+--
+/*
+Prepara un procedimiento que, dado un código de característica, muestre el código de casa, nombre, 
+población y tipo de casa (nombre del tipo) de las casas que tienen esa característica.
+Queremos mostrar los datos por poblaciones y, dentro de una población, las más caras (precio base) primero. 
+*/
+drop procedure if exists p3;
+delimiter $$
+
+create procedure p3(in codCaracteris int)
+begin
+select casas.codcasa, casas.nomcasa, casas.poblacion, tiposcasa.nomtipo
+from casas join tiposcasa on casas.codtipocasa = tiposcasa.numtipo
+	join caracteristicasdecasas on tiposcasa.numtipo = caracteristicasdecasas.codcaracter
+    join caracteristicas on caracteristicasdecasas.codcaracter = caracteristicas.numcaracter
+    where caracteristicas.numcaracter = codCaracteris;
+
+end $$
+
+delimiter ;
+--
+call p3(1);
