@@ -165,3 +165,6 @@ create procedure ej8()
 delimiter ;
 --
 call ej8();
+-- 
+-- CREATE VIEW nombre_de_la_vista AS SELECT columna1, columna2, columna3 FROM nombre_de_la_tabla WHERE condición;
+-- select nombre_de_la_vista;
