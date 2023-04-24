@@ -53,8 +53,9 @@ select casas.codcasa, casas.codzona
 from casas 
 where codcasa not in (
 			select codcasa from reservas
-            where (feciniestancia between fecha1 and fecha2)
+            where fecanulacion is null and (feciniestancia between fecha1 and fecha2)
 			or adddate(feciniestancia, interval numdiasestancia day) not between fecha1 and fecha2)
             and codzona = codigoZona;
 end $$
 delimiter ;
+-- 
