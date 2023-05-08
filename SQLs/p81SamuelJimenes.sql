@@ -11,3 +11,5 @@ descripcion varchar(30),
 totalImporte DECIMAL(6,2),
 constraint pk_facturas PRIMARY KEY (codigoUnico)
 );
+--
+Select * from facturas;
