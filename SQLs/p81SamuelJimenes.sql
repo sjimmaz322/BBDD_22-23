@@ -5,7 +5,7 @@ CREATE DATABASE IF NOT EXISTS p81SamuelJimenez;
 USE p81SamuelJimenez;
 --
 CREATE TABLE facturas(
-codigoUnico int,
+codigoUnico int auto_increment,
 fechaEmision DATE,
 descripcion varchar(30),
 totalImporte DECIMAL(6,2),
