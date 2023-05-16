@@ -181,3 +181,51 @@ alter table categorias
 alter table pedidos
 	add constraint fk_pedidos_productos foreign key (codproducto)
 		references productos (codproducto);
+        
+-- 
+/*
+Cuando se haga una venta hay que comprobar si hay stock suficiente.
+Además modificar el stock (si se puede hacer la venta)
+Si tras la venta el stock es <=5 hacer un pedido automático de 5 unidades
+*/
+
+create table clientes(
+idcliente int,
+nomcli varchar(100),
+constraint pk_clientes primary key (idcliente));
+
+create table ventas(
+codventa int,
+fecventa date,
+cliente int,
+constraint pk_ventas primary key (codventa),
+constraint fk_ventas_clientes foreign key (cliente)
+	references clientes (idcliente)
+    on delete no action on update cascade
+);
+/*
+create table detalleventa(
+codpedido int,
+codprod int,
+cantidad int,
+
+);
+*/
+
+/*
+trigger before insert detalleventa
+begin
+if (stock > cantidad comprada){
+se hace la operación
+}
+end;
+trigger after insert detalleventa
+ (new.stock - cantidad){
+
+}
+trigger after update productos
+{
+
+}
+
+*/
