@@ -11,3 +11,16 @@ $ -> cadenas que terminen por un caracter determinado
 ^ dentro del corchete sirve para negar
 []{n} -> Siendo n el número de coincidencias del caracter dentro del corchete
 */
+
+/*
+^: Representa el inicio de una cadena.
+$: Representa el final de una cadena.
+.: Representa cualquier carácter individual.
+[]: Representa un conjunto de caracteres permitidos.
+*: Representa cero o más repeticiones del carácter anterior.
++: Representa una o más repeticiones del carácter anterior.
+?: Representa cero o una repetición del carácter anterior.
+*/
+
+select * from empleados
+where nomem rlike '^c';
