@@ -42,5 +42,14 @@ INSERT INTO jugadores (nombre, apodo, edad) VALUES ('Samuel', 'Pache', 29);
 INSERT INTO personajes
 (nombre, arquetipo, trasfondo, nivel, alineacion, idJugador)
 VALUES 
-('Zanerius Manosuaves', 'Bardo', 'Un bardo errante en busca de diversión', 1, 'Caótico neutral', 1);
+('Zanerius Manosuaves', 'Bardo', 'Un bardo errante en busca de diversión', 1, 'Caótico neutral', 1),
+('Thor Lyserod', 'Bárbaro', 'Un viejo aventurero viviendo una última aventura antes de retirarse', 1, 'Bueno neutral', 1),
+('Paulo Dosantos', 'Monje', 'Él solo quiere bailar', 1, 'Neutral', 1);
 -- 
+INSERT INTO partidas 
+(nomDirector, nombreCampania, numSesiones, sistema, idPersonaje)
+VALUES 
+('Pache', 'El santuario', 3, 'Dungeons & Dragons 5e', 1),
+('Pache', 'El santuario', 3, 'Dungeons & Dragons 5e', 2),
+('Pache', 'El santuario', 3, 'Dungeons & Dragons 5e', 3),
+('Pache', 'Vuelta a casa', 1, 'RyF 3e', 1);
