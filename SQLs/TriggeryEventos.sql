@@ -111,4 +111,4 @@ $: Representa el final de una cadena.
 */
 
 select * from empleados
-where nomem rlike '^c';
+where nomem regexp '^c';
