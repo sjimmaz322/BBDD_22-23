@@ -25,7 +25,7 @@ CREATE TABLE personajes (
         REFERENCES jugadores (id)
 );
 -- Tabla Partidas
-CREATE TABLE Partidas (
+CREATE TABLE partidas (
     numPartida INT AUTO_INCREMENT,
     nomDirector VARCHAR(255),
     nombreCampania VARCHAR(255),
@@ -37,3 +37,10 @@ CREATE TABLE Partidas (
         REFERENCES personajes (id)
 );
 --
+INSERT INTO jugadores (nombre, apodo, edad) VALUES ('Samuel', 'Pache', 29);
+-- 
+INSERT INTO personajes
+(nombre, arquetipo, trasfondo, nivel, alineacion, idJugador)
+VALUES 
+('Zanerius Manosuaves', 'Bardo', 'Un bardo errante en busca de diversión', 1, 'Caótico neutral', 1);
+-- 
