@@ -3,13 +3,25 @@ Drop database if exists bdProyectoSamuelJimenez;
 CREATE DATABASE bdProyectoSamuelJimenez;
 --
 USE bdProyectoSamuelJimenez;
+-- Tabla Usuarios
+CREATE TABLE usuarios (
+    codUsuario INT AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    edad INT,
+    direccion varchar(100),
+    fecCumpleanios Date,
+    CONSTRAINT pk_usuarios PRIMARY KEY (codUsuario)
+);
 -- Tabla Jugadores
 CREATE TABLE jugadores (
     id INT AUTO_INCREMENT,
-    nombre VARCHAR(50),
     apodo VARCHAR(50),
-    edad INT,
-    CONSTRAINT pk_jugadores PRIMARY KEY (id)
+    sistemaPredilecto VARCHAR(100),
+    rolPreferido ENUM('PJ', 'DM'),
+    codUsuario INT,
+    CONSTRAINT pk_jugadores PRIMARY KEY (id),
+    CONSTRAINT fk_jugadores_usuarios FOREIGN KEY (codUsuario)
+        REFERENCES usuarios (codUsuario)
 );
 -- Tabla Personajes
 CREATE TABLE personajes (
@@ -36,20 +48,11 @@ CREATE TABLE partidas (
     CONSTRAINT fk_partidas_personajes FOREIGN KEY (idPersonaje)
         REFERENCES personajes (id)
 );
---
-INSERT INTO jugadores (nombre, apodo, edad) VALUES ('Samuel', 'Pache', 29);
 -- 
-INSERT INTO personajes
-(nombre, arquetipo, trasfondo, nivel, alineacion, idJugador)
-VALUES 
-('Zanerius Manosuaves', 'Bardo', 'Un bardo errante en busca de diversión', 1, 'Caótico neutral', 1),
-('Thor Lyserod', 'Bárbaro', 'Un viejo aventurero viviendo una última aventura antes de retirarse', 1, 'Bueno neutral', 1),
-('Paulo Dosantos', 'Monje', 'Él solo quiere bailar', 1, 'Neutral', 1);
+insert into usuarios(nombre,edad, direccion, fecCumpleanios)values('Samuel Jiménez',29,'Calle Gades 2','1994-01-01');
 -- 
-INSERT INTO partidas 
-(nomDirector, nombreCampania, numSesiones, sistema, idPersonaje)
-VALUES 
-('Pache', 'El santuario', 3, 'Dungeons & Dragons 5e', 1),
-('Pache', 'El santuario', 3, 'Dungeons & Dragons 5e', 2),
-('Pache', 'El santuario', 3, 'Dungeons & Dragons 5e', 3),
-('Pache', 'Vuelta a casa', 1, 'RyF 3e', 1);
+insert into jugadores(apodo, sistemaPredilecto, rolPreferido, codUsuario)values('Pache','Anima: Beyond Fantasy','DM',1);
+-- 
+insert into personajes(nombre, arquetipo,trasfondo,nivel, alineacion, idJugador)values('Zanerius Manosuaves','Bardo','Un viajero con ganas de un buen rato',1,'Caótico neutral',1);
+-- 
+insert into partidas(nomDirector, nombreCampania, numSesiones, sistema, idPersonaje)values('Pache','El santuario',3,'DnD 5e',1);
