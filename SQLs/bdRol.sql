@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS bdProyectoSamuelJimenez;
-CREATE DATABASE bdProyectoSamuelJimenez;
-USE bdProyectoSamuelJimenez;
+DROP DATABASE IF EXISTS bdRol;
+CREATE DATABASE bdRol;
+USE bdRol;
 
 -- Tabla Usuarios
 CREATE TABLE usuarios (
