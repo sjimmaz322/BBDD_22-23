@@ -39,9 +39,6 @@ CREATE TABLE personajes (
 
 -- 
 insert into usuarios(nombre,edad, direccion, fecCumpleanios)values('Samuel Jiménez',29,'Calle Gades 2','1994-01-01');
--- 
-insert into jugadores(apodo, sistemaPredilecto, rolPreferido, codUsuario)values('Pache','Anima: Beyond Fantasy','DM',1);
--- 
-insert into personajes(nombre, arquetipo,trasfondo,nivel, alineacion, idJugador)values('Zanerius Manosuaves','Bardo','Un viajero con ganas de un buen rato',1,'Caótico neutral',1);
 --
 select * from usuarios;
+select * from jugadores;
