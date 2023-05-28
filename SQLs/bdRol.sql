@@ -43,23 +43,23 @@ CREATE TABLE personajes (
 insert into usuarios
 (nombre,edad, direccion, fecCumpleanios)
 values
-('Samuel Jiménez',29,'Calle Gades 2','1994-01-01'),
-('Nacho',41,'Calle Perico','1981-09-19'),
-('Alberto',30,'Calle Noria','1993-02-07');
+('Usuario 1',18,'Calle 1','1990-01-01'),
+('Usuario 2',19,'Calle 2','1990-02-02'),
+('Usuario 3',20,'Calle 3','1990-03-03');
 --
 insert into jugadores
 (apodo, sistemaPredilecto,rolPreferido,codUsuario)
 values
-('Pache','DnD 5e','DM',1),
-('Nachota','RyF','PJ',2),
-('Elross','Anima: Beyond Fantasy','PJ',3);
+('Jugador 1','DnD 5e','DM',1),
+('Jugador 2','RyF','PJ',2),
+('Jugador 3','Anima: Beyond Fantasy','PJ',3);
 --
 insert into personajes
 (nombre, arquetipo, trasfondo, nivel, alineacion, idJugador)
 values
-('Zan','Bardo','Prueba 1', 1,'Good',1),
-('Thor','Guerrero','Prueba 2', 1,'Good',1),
-('Paulo','Monje','Prueba 3', 1,'Good',1);
+('Personaje 1','Tipo 1','Prueba 1', 1,'Good',1),
+('Personaje 2','Tipo 1','Prueba 2', 2,'Bad',2),
+('Personaje 3','Tipo 2','Prueba 3', 3,'Neutral',3);
 --
 delimiter $$
 create procedure borrarJugadoresSinUsuario()
